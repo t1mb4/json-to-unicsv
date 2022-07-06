@@ -17,7 +17,7 @@ for x in range(len(data["locations"])):
     time=re.sub(r'Z', '', re.sub(r'\..*', '',timestamp[1]))
     lat=int(data['locations'][x]['latitudeE7'])/1e7
     lon=int(data['locations'][x]['longitudeE7'])/1e7
-    CSV_file="Records_" + dateforfilename + ".csv"
+    CSV_file="csv/Records_" + dateforfilename + ".csv"
     file = pathlib.Path(CSV_file)
     if file.exists ():
         csv_f=open(CSV_file, 'a')
@@ -29,5 +29,5 @@ for x in range(len(data["locations"])):
     csv_f.close
 print('Done')    
 
-print('for i in *.csv; do gpsbabel -i unicsv -t -f $i -o gpx -F $i.gpx; done')
+print('cd csv; for i in *.csv; do gpsbabel -i unicsv -t -f $i -o gpx -F ../gpx/$i.gpx; done; cd ..')
 
