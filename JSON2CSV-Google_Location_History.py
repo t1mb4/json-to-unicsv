@@ -37,6 +37,6 @@ for x in range(len(data["locations"])):
     csv_f.close
 
 
-cmd_babel = subprocess.Popen("cd csv; for i in *.csv; do gpsbabel -i unicsv -t -f $i -o gpx -F ../gpx/$i.gpx; done;", stdout=subprocess.PIPE, shell=True)
+cmd_babel = subprocess.Popen("cd csv; for i in *.csv; do trackname=$(echo $i | sed 's/.csv//g' | awk -F'_' '{print $3\"_\"$4}'); gpsbabel -i unicsv -t -f $i -o gpx -x track,title=${trackname} -F ../gpx/$i.gpx; done; cd ..", stdout=subprocess.PIPE, shell=True)
 print('Done')    
 
